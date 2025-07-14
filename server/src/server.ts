@@ -12,6 +12,7 @@ import { createRoomRoute } from './http/routes/create-room.ts'
 import { getRoomQuestions } from './http/routes/get-room-questions.ts'
 import { getRoomsRoute } from './http/routes/get-rooms.ts'
 import { uploadAudioRoute } from './http/routes/upload-audio.ts'
+import 'dotenv/config';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
