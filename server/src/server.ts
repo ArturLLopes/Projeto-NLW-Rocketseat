@@ -19,11 +19,15 @@ const app = fastify().withTypeProvider<ZodTypeProvider>()
 
 app.register(fastifyCors, {
   origin: (origin, cb) => {
-    const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'].filter(Boolean)
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://projeto-nlw-rocketseat-r73d-git-main-artur-lopes-projects.vercel.app',
+    ]
+
     if (!origin || allowedOrigins.includes(origin)) {
       cb(null, true)
     } else {
-      cb(new Error('Origin not allowed'), false)
+      cb(new Error('Origin not allowed by CORS'), false)
     }
   },
 })
