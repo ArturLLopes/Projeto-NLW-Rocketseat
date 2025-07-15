@@ -1,14 +1,24 @@
 import { useQuery } from '@tanstack/react-query'
-import type { GetRoomsResponse } from './types/get-rooms-response'
+
+interface Room {
+  id: string
+  name: string
+  description: string | null
+  createdAt: string
+}
 
 export function useRooms() {
-  return useQuery({
+  return useQuery<Room[]>({
     queryKey: ['get-rooms'],
     queryFn: async () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/rooms`)
-      const result: GetRoomsResponse = await response.json()
 
-      return result
+      if (!response.ok) {
+        throw new Error('Failed to fetch rooms.')
+      }
+
+      const { rooms } = await response.json()
+      return rooms
     },
   })
 }
